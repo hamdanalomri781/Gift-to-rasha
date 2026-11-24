@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>هدية رقمية</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#03120e;--bg2:#0a2b22;--ink:#f6eddc;--soft:#9db9ad;--gold:#e8c46c;--tq:#3ccfae;--card:rgba(6,32,26,.78);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(circle at 50% 30%,var(--bg2),var(--bg));color:var(--ink);font-family:'Amiri',Georgia,serif;overflow:hidden;user-select:none;cursor:pointer}
+#bg{position:fixed;inset:0;width:100%;height:100%}
+#app{position:relative;height:100%;max-width:520px;margin:0 auto;padding:12px 18px 8px;display:flex;flex-direction:column}
+#stage{position:relative;flex:1;min-height:0}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;opacity:0;transform:scale(.96);transition:opacity .7s ease,transform .7s ease;pointer-events:none}
+.slide.on{opacity:1;transform:none}
+.card{background:var(--card);backdrop-filter:blur(8px);border:1px solid rgba(232,196,108,.6);border-radius:22px;padding:22px 20px;width:100%;max-height:100%;overflow:auto;text-align:center;box-shadow:0 0 44px rgba(232,196,108,.12)}
+.card p{margin:0 0 12px;font-size:20px;line-height:1.95}
+h2.t{font-family:'Reem Kufi',serif;color:var(--gold);font-size:30px;margin:0 0 12px;font-weight:700}
+.fl{opacity:0;transform:translateY(12px)}
+.slide.on .fl{animation:up .9s ease forwards;animation-delay:calc(var(--i)*1s + .3s)}
+@keyframes up{to{opacity:1;transform:none}}
+@keyframes bob{50%{transform:translateY(-7px)}}
+@keyframes rot{to{transform:rotate(360deg)}}
+@keyframes pl{50%{opacity:.35}}
+.bgstar{position:absolute;width:340px;height:340px;opacity:.16;animation:rot 60s linear infinite}
+.to{font-family:'Reem Kufi',serif;font-size:26px;color:var(--soft)}
+.nm{font-family:'Aref Ruqaa',serif;font-size:128px;font-weight:700;line-height:1.35;padding:0 14px;background:linear-gradient(180deg,#fff2c4,#e8c46c 55%,#a8791f);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(232,196,108,.45));clip-path:inset(0 0 0 100%)}
+.slide.on .nm{animation:wr 2.2s ease .6s forwards}
+@keyframes wr{to{clip-path:inset(0 0 0 0)}}
+.flour{width:260px;height:30px;overflow:visible}
+.flour path{fill:none;stroke:var(--gold);stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1;filter:drop-shadow(0 0 4px var(--gold))}
+.slide.on .flour path{animation:dr 2s ease 2.2s forwards}
+@keyframes dr{to{stroke-dashoffset:0}}
+.sub{font-size:22px;color:var(--gold)}
+.env{position:relative;width:min(300px,82vw);height:200px;margin-top:34px;perspective:900px;animation:bob 3.2s ease-in-out infinite}
+.env>div{position:absolute}
+.eback{inset:0;background:linear-gradient(145deg,#0f4a3a,#06241c);border:1px solid var(--gold);border-radius:12px;box-shadow:0 0 54px rgba(232,196,108,.28)}
+.paper{left:14px;right:14px;top:16px;height:160px;z-index:1;background:linear-gradient(#f7efdd,#e6d9bb);border-radius:6px;transition:transform 1s ease .9s}
+.paper::before{content:"";position:absolute;inset:14px;background:repeating-linear-gradient(transparent 0 14px,rgba(120,100,60,.25) 14px 15px)}
+.glow{left:50%;top:40%;width:20px;height:20px;margin:-10px;border-radius:50%;background:radial-gradient(circle,rgba(255,236,170,.95),transparent 70%);opacity:0;z-index:1}
+.efront{inset:0;border-radius:12px;background:radial-gradient(circle,rgba(232,196,108,.2) 0 2px,transparent 3px) 0 0/18px 18px,linear-gradient(160deg,#145c48,#082a21);clip-path:polygon(0 0,50% 54%,100% 0,100% 100%,0 100%);display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px;font-family:'Aref Ruqaa',serif;font-size:23px;color:var(--gold);z-index:2}
+.flap{left:0;right:0;top:0;height:56%;background:linear-gradient(180deg,#1b7058,#0e4636);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;z-index:3}
+.seal{left:50%;top:54%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff1b8,#d9a53a);z-index:4;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(232,196,108,.8);transition:opacity .4s}
+.seal svg{position:absolute;width:48px;height:48px;animation:rot 8s linear infinite}
+.seal b{position:relative;font-family:'Aref Ruqaa',serif;font-size:26px;color:#4a3000}
+.open .flap{animation:fo 1s ease .1s forwards}
+@keyframes fo{0%{transform:rotateX(0);z-index:3}50%{transform:rotateX(90deg);z-index:3}51%{transform:rotateX(90deg);z-index:0}100%{transform:rotateX(180deg);z-index:0}}
+.open .paper{transform:translateY(-78px)}
+.open .seal{opacity:0}
+.open .glow{animation:gl 1.6s ease-out .9s forwards}
+@keyframes gl{0%{opacity:0;transform:scale(1)}30%{opacity:1}100%{opacity:0;transform:scale(24)}}
+.hint0{color:var(--gold);font-size:20px;animation:pl 1.6s ease-in-out infinite}
+.dad{font-family:'Aref Ruqaa',serif;font-size:170px;line-height:1.2;font-weight:700;background:linear-gradient(180deg,#fff2c4,#e8c46c 55%,#a8791f);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 26px rgba(232,196,108,.55));animation:bob 4s ease-in-out infinite}
+.orb{position:relative;display:flex;align-items:center;justify-content:center;width:230px;height:230px}
+.orb::before{content:"";position:absolute;inset:0;border-radius:50%;border:1px dashed rgba(232,196,108,.6);animation:rot 20s linear infinite}
+.orb::after{content:"";position:absolute;width:12px;height:12px;border-radius:50%;background:var(--tq);box-shadow:0 0 14px var(--tq);top:-6px;left:50%;margin-left:-6px;transform-origin:6px 121px;animation:rot 6s linear infinite}
+.cap{font-size:21px;text-align:center;line-height:1.9;padding:0 6px}
+.eg{display:flex;gap:26px;justify-content:center;margin:6px 0 14px;direction:rtl}
+.wd{font-size:50px;line-height:1.4;color:var(--ink);text-shadow:0 0 18px rgba(232,196,108,.35)}
+.rl{display:inline-block;font-family:'Reem Kufi',serif;font-size:16px;color:#03120e;background:var(--gold);border-radius:14px;padding:2px 12px;margin-top:4px}
+.sg{font-size:16px;color:var(--soft);margin-top:6px;max-width:130px}
+.sg i{font-style:normal;color:var(--gold);font-size:22px}
+.ab{direction:ltr;overflow:hidden;white-space:nowrap;width:100%;height:36px;flex:none;color:var(--gold);font-size:26px;opacity:.85}
+.ab span{display:inline-block;animation:ab 26s linear infinite;letter-spacing:10px}
+.ab.r span{animation-direction:reverse;color:var(--tq)}
+@keyframes ab{to{transform:translateX(-50%)}}
+.ln{font-size:21px;line-height:1.9}
+hr{border:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:5px 0}
+.wb{position:relative;width:230px;height:230px}
+.wh{position:absolute;left:50%;top:50%;animation:rot 45s linear infinite}
+.wh span{position:absolute;left:-14px;top:-14px;width:28px;text-align:center;font-size:25px;color:var(--gold)}
+.wb svg{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;animation:rot 14s linear infinite reverse;filter:drop-shadow(0 0 10px rgba(232,196,108,.7))}
+.wb b{position:absolute;left:0;right:0;top:50%;margin-top:-26px;text-align:center;font-family:'Aref Ruqaa',serif;font-size:42px;line-height:1.2;color:var(--gold)}
+.big{font-family:'Aref Ruqaa',serif;font-size:44px;color:var(--gold);text-shadow:0 0 22px rgba(232,196,108,.5);font-weight:700;text-align:center;line-height:1.5}
+.by{font-family:'Reem Kufi',serif;font-size:26px}
+.rp{background:var(--card);border:1px solid var(--gold);color:var(--gold);font-family:'Amiri',serif;font-size:20px;padding:8px 24px;border-radius:30px;cursor:pointer}
+nav{flex:none;display:flex;flex-direction:column;align-items:center;gap:5px;padding-top:6px;min-height:34px}
+#dots{display:flex;gap:7px}
+#dots i{width:7px;height:7px;border-radius:50%;background:var(--soft);opacity:.35;transition:.4s}
+#dots i.on{opacity:1;background:var(--gold);transform:scale(1.35)}
+#hint{font-size:15px;color:var(--soft)}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div id="app">
+<div id="stage">
+<div class="slide">
+<svg class="bgstar" viewBox="0 0 100 100" fill="none" stroke="#e8c46c" stroke-width=".6"><rect x="18" y="18" width="64" height="64"/><rect x="18" y="18" width="64" height="64" transform="rotate(45 50 50)"/><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="20"/></svg>
+<div class="to fl" style="--i:0">إلى الآنسة</div>
+<div class="nm">رشا</div>
+<svg class="flour" viewBox="0 0 300 30"><path pathLength="1" d="M5 15C60-5 90 35 150 15S240-5 295 15"/></svg>
+<div class="sub fl" style="--i:3">هديّةٌ من القلب</div>
+</div>
+<div class="slide">
+<div class="to fl" style="--i:0">رسالةٌ إليكِ</div>
+<div class="env" id="env"><div class="eback"></div><div class="paper"></div><div class="glow"></div><div class="efront">إلى الآنسة رشا</div><div class="flap"></div><div class="seal"><svg viewBox="0 0 100 100" fill="none" stroke="#5a3b00" stroke-width="4"><rect x="16" y="16" width="68" height="68"/><rect x="16" y="16" width="68" height="68" transform="rotate(45 50 50)"/></svg><b>ر</b></div></div>
+<div class="hint0">المسي الظرف لفتحه ✉️</div>
+</div>
+<div class="slide"><div class="card">
+<h2 class="t fl" style="--i:0">إلى الآنسة رشا</h2>
+<p class="fl" style="--i:1">إلى من جعلت من الحرف رسالة، ومن الكلمة أثرًا، ومن اللغة عالمًا تتجلّى فيه روعة البيان وجمال المعنى.</p>
+<p class="fl" style="--i:3">إنّ للعلم أهلًا يُجلّون، وللفضل أصحابًا يُذكرون، وللمعلّم مقامًا لا تفيه عبارات الشكر مهما بلغت من البلاغة والفصاحة.</p>
+</div></div>
+<div class="slide"><div class="card">
+<p class="fl" style="--i:0">أستاذتي، إنّ تعليم اللغة العربية ليس تلقينًا لقواعدها فحسب، بل هو غرسٌ للذائقة، وإحياءٌ لجمال اللسان، وتعريفٌ بعظمة لغةٍ اتّسعت للبيان وحملت من المعاني ما تعجز عن وصفه الكلمات.</p>
+</div></div>
+<div class="slide"><div class="card">
+<p class="fl" style="--i:0">ولعلّ أجمل ما يتركه المعلّم في نفوس طلابه ليس ما يمرّ على أسماعهم من دروس، بل ما يستقرّ في عقولهم من علم، وما يبقى في ذاكرتهم من أثر.</p>
+<p class="fl" style="--i:2">فلكِ من التقدير أصدقه، ومن الدعاء أطيبه، ومن الشكر ما يليق بعظيم عطائكِ.</p>
+</div></div>
+<div class="slide">
+<h2 class="t fl" style="--i:0">لغةُ الضّاد</h2>
+<div class="orb"><div class="dad">ض</div></div>
+<div class="cap fl" style="--i:1">حرفٌ تفرّدت به العربية، كأنّه توقيعُها على صفحةِ الكلام.</div>
+</div>
+<div class="slide"><div class="card">
+<h2 class="t fl" style="--i:0">فنُّ الإعراب</h2>
+<div class="eg fl" style="--i:1">
+<div><div class="wd">العلمُ</div><div class="rl">مبتدأ مرفوع</div><div class="sg">علامة رفعه الضمّة <i>ـُ</i></div></div>
+<div><div class="wd">نورٌ</div><div class="rl">خبر مرفوع</div><div class="sg">علامة رفعه الضمّة <i>ـٌ</i></div></div>
+</div>
+<p class="fl" style="--i:3">وأنتِ المصباحُ الذي يحملُه إلى العقول ✨</p>
+</div></div>
+<div class="slide">
+<div class="ab"><span>ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي </span></div>
+<div class="card">
+<div class="ln fl" style="--i:0">أقمتِ من الحروفِ لنا صروحًا</div><div class="ln fl" style="--i:1">وأحييتِ البيانَ لنا شعورًا</div><hr>
+<div class="ln fl" style="--i:2">غرستِ النحوَ في عقلٍ فأضحى</div><div class="ln fl" style="--i:3">يرى في الضمِّ والفتحِ نورًا</div><hr>
+<div class="ln fl" style="--i:4">رفعتِ بالعلمِ قدرًا لا يُضاهى</div><div class="ln fl" style="--i:5">وجعلتِ من حروفِ الضادِ فخرًا</div><hr>
+<div class="ln fl" style="--i:6">فأنتِ لسانُ علمٍ لا يُجارى</div><div class="ln fl" style="--i:7">وأنتِ لفضلِ أهلِ العلمِ ذكرى</div>
+</div>
+<div class="ab r"><span>ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي </span></div>
+</div>
+<div class="slide">
+<div class="wb" id="wb"><div class="wh" id="wh"></div><svg viewBox="0 0 100 100" fill="rgba(232,196,108,.15)" stroke="#e8c46c" stroke-width="2"><rect x="16" y="16" width="68" height="68"/><rect x="16" y="16" width="68" height="68" transform="rotate(45 50 50)"/></svg><b>ر</b></div>
+<div class="big fl" style="--i:0">كل عام وأنتِ بخير</div>
+<div class="by fl" style="--i:1">أحمد حميدان</div>
+<button class="rp fl" id="rp" style="--i:3">إعادة ↻</button>
+</div>
+</div>
+<nav><div id="dots"></div><div id="hint">المسي الشاشة للمتابعة</div></nav>
+</div>
+<script>
+var S=[].slice.call(document.querySelectorAll('.slide')),n=S.length,cur=0,opened=false,env=document.getElementById('env'),dt=document.getElementById('dots'),hint=document.getElementById('hint');
+var L='ابتثجحخدذرزسشصضطظعغفقكلمنهوي',HK=['\u064E','\u064F','\u0650','\u0651','\u0652'];
+for(var i=0;i<n;i++)dt.appendChild(document.createElement('i'));
+var wh=document.getElementById('wh');
+for(var i=0;i<28;i++){var s=document.createElement('span');s.textContent=L[i];s.style.transform='rotate('+(i*360/28)+'deg) translateY(-98px)';wh.appendChild(s);}
+function go(k){cur=k;S.forEach(function(s,j){s.classList.toggle('on',j==k)});
+[].forEach.call(dt.children,function(d,j){d.classList.toggle('on',j==k)});
+hint.style.visibility=(k==1||k==n-1)?'hidden':'visible';}
+document.addEventListener('click',function(e){burst(e.clientX,e.clientY);
+if(cur==1){if(!opened){opened=true;env.classList.add('open');var r=env.getBoundingClientRect();
+setTimeout(function(){for(var i=0;i<46;i++)Q.push({t:L[Math.floor(Math.random()*28)],x:r.left+r.width/2,y:r.top+60,vx:(Math.random()-.5)*5,vy:-1.5-Math.random()*4,l:1.4,s:20+Math.random()*18});},900);
+setTimeout(function(){go(2)},2700);}return;}
+if(cur<n-1)go(cur+1);});
+document.getElementById('rp').addEventListener('click',function(e){e.stopPropagation();opened=false;env.classList.remove('open');go(0);});
+go(0);
+var c=document.getElementById('bg'),x=c.getContext('2d'),W,H,F=[],D=[],Q=[],R=[];
+function rs(){var d=window.devicePixelRatio||1;W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;x.setTransform(d,0,0,d,0,0);}
+rs();addEventListener('resize',rs);
+function rl(){var t=L[Math.floor(Math.random()*28)];return Math.random()<.5?t+HK[Math.floor(Math.random()*5)]:t;}
+for(var i=0;i<26;i++)F.push({t:rl(),x:Math.random()*W,y:Math.random()*H,v:.1+Math.random()*.3,s:28+Math.random()*40,r:Math.random()*6,vr:(Math.random()-.5)*.01,a:.05+Math.random()*.09,g:Math.random()<.6});
+for(var i=0;i<50;i++)D.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:-.1-Math.random()*.3,p:Math.random()*6});
+function burst(px,py){R.push({x:px,y:py,r:0});for(var i=0;i<14;i++){var a=Math.random()*6.28,s=1+Math.random()*3;Q.push({t:rl(),x:px,y:py,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1,l:1,s:18+Math.random()*10});}}
+function loop(){x.clearRect(0,0,W,H);x.textAlign='center';
+F.forEach(function(f){f.y-=f.v;f.r+=f.vr;if(f.y<-70){f.y=H+70;f.x=Math.random()*W;f.t=rl();}
+x.save();x.translate(f.x,f.y);x.rotate(f.r);x.font=f.s+'px Amiri,serif';x.fillStyle=f.g?'rgba(232,196,108,'+f.a+')':'rgba(246,237,220,'+f.a+')';x.fillText(f.t,0,0);x.restore();});
+D.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.p+=.04;if(p.y<0){p.y=H;p.x=Math.random()*W;}
+x.fillStyle='rgba(255,226,140,'+(.35+.35*Math.sin(p.p))+')';x.beginPath();x.arc(p.x,p.y,1.5,0,6.28);x.fill();});
+R=R.filter(function(r){r.r+=4;x.strokeStyle='rgba(232,196,108,'+Math.max(0,1-r.r/220)+')';x.lineWidth=2;x.beginPath();x.arc(r.x,r.y,r.r,0,6.28);x.stroke();return r.r<220;});
+Q=Q.filter(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.03;p.vx*=.99;p.l-=.014;x.font=p.s+'px Amiri,serif';x.fillStyle='rgba(255,226,140,'+Math.max(0,Math.min(1,p.l))+')';x.fillText(p.t,p.x,p.y);return p.l>0;});
+requestAnimationFrame(loop);}
+loop();
+</script>
+</body>
+</html>
